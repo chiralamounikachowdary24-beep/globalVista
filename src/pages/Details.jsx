@@ -15,9 +15,9 @@ const Details = () => {
       try {
         const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(searchQuery)}&count=1`);
         const geoData = await geoRes.json();
-        
+
         if (!geoData.results || geoData.results.length === 0) {
-          setWeather({ temp: "--", desc: "Location not found" });
+          setWeather({ temp: "--", desc: "Location not found", icon: "❓" });
           return;
         }
 
@@ -27,24 +27,34 @@ const Details = () => {
         const weatherData = await weatherRes.json();
 
         const w = weatherData.current_weather;
-        
+
         const wmoMap = {
-          0: "Clear sky",
-          1: "Mainly clear", 2: "Partly cloudy", 3: "Overcast",
-          45: "Fog", 48: "Depositing rime fog",
-          51: "Light drizzle", 53: "Drizzle", 55: "Heavy drizzle",
-          61: "Light rain", 63: "Rain", 65: "Heavy rain",
-          71: "Light snow", 73: "Snow", 75: "Heavy snow",
-          80: "Rain showers", 81: "Heavy rain showers",
-          95: "Thunderstorm"
+          0: { desc: "Clear sky", icon: "☀️" },
+          1: { desc: "Mainly clear", icon: "🌤️" },
+          2: { desc: "Partly cloudy", icon: "⛅" },
+          3: { desc: "Overcast", icon: "☁️" },
+          45: { desc: "Fog", icon: "🌫️" },
+          48: { desc: "Depositing rime fog", icon: "🌫️" },
+          51: { desc: "Light drizzle", icon: "🌦️" },
+          53: { desc: "Drizzle", icon: "🌦️" },
+          55: { desc: "Heavy drizzle", icon: "🌦️" },
+          61: { desc: "Light rain", icon: "🌧️" },
+          63: { desc: "Rain", icon: "🌧️" },
+          65: { desc: "Heavy rain", icon: "🌧️" },
+          71: { desc: "Light snow", icon: "🌨️" },
+          73: { desc: "Snow", icon: "🌨️" },
+          75: { desc: "Heavy snow", icon: "🌨️" },
+          80: { desc: "Rain showers", icon: "🚿" },
+          81: { desc: "Heavy rain showers", icon: "🚿" },
+          95: { desc: "Thunderstorm", icon: "⛈️" }
         };
-        
-        const desc = wmoMap[w.weathercode] || "Variable conditions";
-        setWeather({ temp: w.temperature, desc });
+
+        const condition = wmoMap[w.weathercode] || { desc: "Variable", icon: "🌡️" };
+        setWeather({ temp: w.temperature, desc: condition.desc, icon: condition.icon });
 
       } catch (err) {
         console.error(err);
-        setWeather({ temp: "--", desc: "Weather unavailable" });
+        setWeather({ temp: "--", desc: "Weather unavailable", icon: "⚠️" });
       }
     };
 
@@ -115,7 +125,7 @@ const Details = () => {
                 <span>₹{foodCost}</span>
               </div>
             </div>
-            
+
             <div className="total-row">
               <span className="total-label">Total per Person</span>
               <span className="total-amount">₹{totalPrice}</span>
@@ -124,9 +134,12 @@ const Details = () => {
 
           <div className="details-card weather-card">
             <h3 className="card-heading">Current Weather</h3>
-            <p>
-              {weather.temp !== null ? `${weather.temp}°C | ${weather.desc}` : weather.desc}
-            </p>
+            <div className="weather-info-display">
+              <span className="weather-icon">{weather.icon || "🌡️"}</span>
+              <span className="weather-text">
+                {weather.temp !== null ? `${weather.temp}°C | ${weather.desc}` : weather.desc}
+              </span>
+            </div>
           </div>
 
           <button

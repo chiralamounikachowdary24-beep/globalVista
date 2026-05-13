@@ -116,6 +116,26 @@
   color: #e2e8f0;
 }
 
+.weather-info-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.weather-icon {
+  font-size: 32px;
+}
+
+.weather-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: #e2e8f0;
+}
+
 .book-btn {
   background: #f97316;
   color: white;

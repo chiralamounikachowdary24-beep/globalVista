@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../styles/booking.css";
 import { useNavigate } from 'react-router-dom'
 const Booking = () => {
+  const navigate = useNavigate();
   const place = JSON.parse(localStorage.getItem("place"));
 
   const [name, setName] = useState("");
