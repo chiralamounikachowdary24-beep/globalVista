@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { auth } from "../firebase";
 import { signOut } from "firebase/auth";
+import { defaultCountries, defaultPlaces } from "../data/defaultData";
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const Admin = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [placeName, setPlaceName] = useState("");
   const [description, setDescription] = useState("");
-  const [image1, setImage1] = useState("");
+  const [image, setImage] = useState("");
   const [image2, setImage2] = useState("");
   const [travel, setTravel] = useState("");
   const [stay, setStay] = useState("");
@@ -26,13 +27,21 @@ const Admin = () => {
 
   // DATA STORAGE
   const [countries, setCountries] = useState(() => {
-    const saved = localStorage.getItem("countries");
-    return saved ? JSON.parse(saved) : [];
+    let saved = JSON.parse(localStorage.getItem("countries"));
+    if (!saved || saved.length === 0) {
+      saved = defaultCountries;
+      localStorage.setItem("countries", JSON.stringify(saved));
+    }
+    return saved;
   });
 
   const [places, setPlaces] = useState(() => {
-    const saved = localStorage.getItem("places");
-    return saved ? JSON.parse(saved) : [];
+    let saved = JSON.parse(localStorage.getItem("places"));
+    if (!saved || saved.length === 0) {
+      saved = defaultPlaces;
+      localStorage.setItem("places", JSON.stringify(saved));
+    }
+    return saved;
   });
 
   // SAVE TO LOCALSTORAGE ON CHANGE
@@ -97,7 +106,7 @@ const Admin = () => {
       country: selectedCountry,
       name: placeName,
       description,
-      image1,
+      image,
       image2,
       travel,
       stay,
@@ -109,7 +118,7 @@ const Admin = () => {
     // CLEAR FORM
     setPlaceName("");
     setDescription("");
-    setImage1("");
+    setImage("");
     setImage2("");
     setTravel("");
     setStay("");
@@ -206,9 +215,9 @@ const Admin = () => {
             <input
               type="text"
               className="form-input"
-              placeholder="Image URL 1"
-              value={image1}
-              onChange={(e) => setImage1(e.target.value)}
+              placeholder="Image URL"
+              value={image}
+              onChange={(e) => setImage(e.target.value)}
             />
 
             <input

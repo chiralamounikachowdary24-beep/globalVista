@@ -75,7 +75,7 @@ const Details = () => {
   const foodCost = place.food ? Number(place.food) : (place.price ? place.price * 0.1 : 0);
   const totalPrice = place.price || (travelCost + stayCost + foodCost);
 
-  const imageSrc = place.image1 || (place.images && place.images[0]) || "";
+  const imageSrc = place.image || (place.images && place.images[0]) || "";
   const description = place.description || `${place.name} is one of the most beautiful tourist destinations. Enjoy unforgettable experience with amazing views and culture.`;
 
   // We should also update the local storage with the total price if it was calculated from parts,

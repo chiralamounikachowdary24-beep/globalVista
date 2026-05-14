@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { auth } from "../firebase";
 import { signOut } from "firebase/auth";
+import { defaultCountries, defaultPlaces, DATA_VERSION } from "../data/defaultData";
 
 const Countries = () => {
   const [countries, setCountries] = useState([]);
@@ -11,8 +12,21 @@ const Countries = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedCountries = JSON.parse(localStorage.getItem("countries")) || [];
-    const storedPlaces = JSON.parse(localStorage.getItem("places")) || [];
+    let storedVersion = localStorage.getItem("data_version");
+    let storedCountries = JSON.parse(localStorage.getItem("countries"));
+    let storedPlaces = JSON.parse(localStorage.getItem("places"));
+
+    if (!storedCountries || storedCountries.length === 0 || storedVersion !== DATA_VERSION) {
+      storedCountries = defaultCountries;
+      localStorage.setItem("countries", JSON.stringify(defaultCountries));
+      localStorage.setItem("data_version", DATA_VERSION);
+    }
+    
+    if (!storedPlaces || storedPlaces.length === 0 || storedVersion !== DATA_VERSION) {
+      storedPlaces = defaultPlaces;
+      localStorage.setItem("places", JSON.stringify(defaultPlaces));
+    }
+
     setCountries(storedCountries);
     setAllPlaces(storedPlaces);
   }, []);
@@ -83,4 +97,4 @@ const Countries = () => {
   );
 };
 
-export default Countries;
+export default Countries;

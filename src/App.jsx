@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "./pages/Login";
@@ -10,7 +11,20 @@ import Confirmation from "./pages/Confirmation";
 import Admin from "./pages/Admin";
 import ProtectedRoute from "./components/ProtectedRoute";
 
+import { useEffect } from "react";
+import { defaultCountries, defaultPlaces, DATA_VERSION } from "./data/defaultData";
+
 function App() {
+  useEffect(() => {
+    const storedVersion = localStorage.getItem("data_version");
+    if (storedVersion !== DATA_VERSION) {
+      localStorage.setItem("countries", JSON.stringify(defaultCountries));
+      localStorage.setItem("places", JSON.stringify(defaultPlaces));
+      localStorage.setItem("data_version", DATA_VERSION);
+      window.location.reload(); 
+    }
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>

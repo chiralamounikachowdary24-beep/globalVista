@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { auth } from "../firebase";
 import { signOut } from "firebase/auth";
+import { defaultPlaces, DATA_VERSION } from "../data/defaultData";
 
 const Places = () => {
   const country = localStorage.getItem("country");
@@ -11,8 +12,17 @@ const Places = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const allPlaces = JSON.parse(localStorage.getItem("places")) || [];
+    let storedVersion = localStorage.getItem("data_version");
+    let allPlaces = JSON.parse(localStorage.getItem("places"));
+    
+    if (!allPlaces || allPlaces.length === 0 || storedVersion !== DATA_VERSION) {
+      allPlaces = defaultPlaces;
+      localStorage.setItem("places", JSON.stringify(defaultPlaces));
+      localStorage.setItem("data_version", DATA_VERSION);
+    }
+    
     const filtered = allPlaces.filter(p => p.country === country);
+    console.log("Filtered places for", country, ":", filtered);
     setSelectedPlaces(filtered);
   }, [country]);
 
@@ -54,7 +64,7 @@ const Places = () => {
       <div className="places-grid">
         {selectedPlaces.length === 0 && <p style={{ color: 'white' }}>No places available for {country}. Please ask an admin to add some.</p>}
         {selectedPlaces.map((place, index) => {
-          const imageSrc = place.image1 || (place.images && place.images[0]) || "";
+          const imageSrc = place.image || (place.images && place.images[0]) || "";
           const totalPrice = place.price || (Number(place.travel) + Number(place.stay) + Number(place.food));
 
           return (
@@ -83,4 +93,4 @@ const Places = () => {
   );
 };
 
-export default Places;
+export default Places;
