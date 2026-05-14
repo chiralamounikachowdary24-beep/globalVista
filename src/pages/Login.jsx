@@ -38,14 +38,18 @@ const LoginForm = () => {
 
   const submitForm = async event => {
     event.preventDefault()
+
+    if (!email || !password) {
+      onSubmitFailure('Please enter both email and password')
+      return
+    }
+
     if (role === 'user') {
-    const fakeToken =
-      `${email}-user-token`
+      const fakeToken = `${email}-user-token`
+      onSubmitSuccess(fakeToken)
+      return
+    }
 
-    onSubmitSuccess(fakeToken)
-
-    return
-  }
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password)
       const jwtToken = await userCredential.user.getIdToken()
@@ -61,7 +65,8 @@ const LoginForm = () => {
       const jwtToken = await result.user.getIdToken()
       onSubmitSuccess(jwtToken)
     } catch (error) {
-      onSubmitFailure('Google Login Failed')
+      console.error("Google Login Error:", error);
+      onSubmitFailure('Google Login Failed: ' + error.message)
     }
   }
 
