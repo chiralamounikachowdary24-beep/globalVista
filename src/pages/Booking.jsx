@@ -58,81 +58,81 @@ const Booking = () => {
         <form onSubmit={handleBooking}>
           <div className="booking-form-group">
             <label>Your Name</label>
-            <input 
-              className="booking-input" 
-              placeholder="Enter your full name" 
-              value={name} 
-              onChange={(e) => setName(e.target.value)} 
+            <input
+              className="booking-input"
+              placeholder="Enter your full name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               required
             />
           </div>
 
           <div className="booking-form-group">
             <label>Contact Number</label>
-            <input 
-              className="booking-input" 
-              placeholder="Enter phone number" 
+            <input
+              className="booking-input"
+              placeholder="Enter phone number"
               type="tel"
-              value={phone} 
-              onChange={(e) => setPhone(e.target.value)} 
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
               required
             />
           </div>
 
           <div className="booking-form-group">
             <label>Email</label>
-            <input 
-              className="booking-input" 
-              placeholder="Enter email" 
+            <input
+              className="booking-input"
+              placeholder="Enter email"
               type="email"
-              value={email} 
-              onChange={(e) => setEmail(e.target.value)} 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
 
           <div className="booking-form-group">
             <label>Address</label>
-            <textarea 
-              className="booking-textarea" 
-              placeholder="Enter address" 
-              value={address} 
-              onChange={(e) => setAddress(e.target.value)} 
+            <textarea
+              className="booking-textarea"
+              placeholder="Enter address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
               required
             />
           </div>
 
           <div className="booking-form-group">
             <label>Start Date</label>
-            <input 
-              className="booking-input" 
+            <input
+              className="booking-input"
               type="date"
-              value={startDate} 
-              onChange={(e) => setStartDate(e.target.value)} 
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
               required
             />
           </div>
 
           <div className="booking-form-group">
             <label>Trip Duration (Days)</label>
-            <input 
-              className="booking-input" 
+            <input
+              className="booking-input"
               type="number"
               min="1"
-              value={days} 
-              onChange={(e) => setDays(e.target.value)} 
+              value={days}
+              onChange={(e) => setDays(e.target.value)}
               required
             />
           </div>
 
           <div className="booking-form-group">
             <label>Number of Travelers</label>
-            <input 
-              className="booking-input" 
+            <input
+              className="booking-input"
               type="number"
               min="1"
-              value={people} 
-              onChange={(e) => setPeople(e.target.value)} 
+              value={people}
+              onChange={(e) => setPeople(e.target.value)}
               required
             />
           </div>

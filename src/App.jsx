@@ -21,7 +21,7 @@ function App() {
       localStorage.setItem("countries", JSON.stringify(defaultCountries));
       localStorage.setItem("places", JSON.stringify(defaultPlaces));
       localStorage.setItem("data_version", DATA_VERSION);
-      window.location.reload(); 
+      window.location.reload();
     }
   }, []);
 

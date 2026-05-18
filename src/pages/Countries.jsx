@@ -21,7 +21,7 @@ const Countries = () => {
       localStorage.setItem("countries", JSON.stringify(defaultCountries));
       localStorage.setItem("data_version", DATA_VERSION);
     }
-    
+
     if (!storedPlaces || storedPlaces.length === 0 || storedVersion !== DATA_VERSION) {
       storedPlaces = defaultPlaces;
       localStorage.setItem("places", JSON.stringify(defaultPlaces));

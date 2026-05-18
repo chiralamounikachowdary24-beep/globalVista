@@ -14,13 +14,13 @@ const Places = () => {
   useEffect(() => {
     let storedVersion = localStorage.getItem("data_version");
     let allPlaces = JSON.parse(localStorage.getItem("places"));
-    
+
     if (!allPlaces || allPlaces.length === 0 || storedVersion !== DATA_VERSION) {
       allPlaces = defaultPlaces;
       localStorage.setItem("places", JSON.stringify(defaultPlaces));
       localStorage.setItem("data_version", DATA_VERSION);
     }
-    
+
     const filtered = allPlaces.filter(p => p.country === country);
     console.log("Filtered places for", country, ":", filtered);
     setSelectedPlaces(filtered);

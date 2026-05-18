@@ -12,15 +12,15 @@ const Home = () => {
     try {
       // Clear Firebase session
       await signOut(auth);
-      
+
       // Clear Cookies
       Cookies.remove("jwt_token");
-      
+
       // Clear LocalStorage
       localStorage.removeItem("role");
       localStorage.removeItem("country");
       localStorage.removeItem("place");
-      
+
       // Navigate to Login page
       navigate("/", { replace: true });
     } catch (e) {
@@ -31,7 +31,7 @@ const Home = () => {
       navigate("/", { replace: true });
     }
   };
- 
+
   return (
     <div className="home-hero-bg">
       <div className="top-nav">
@@ -51,4 +51,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Home;
